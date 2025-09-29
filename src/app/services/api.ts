@@ -27,5 +27,19 @@ export class ApiService {
   );
 }
 
+  deleteSummary(id: number) {
+    return this.http.delete<{ message: string }>(
+      `${this.baseUrl}/summaries/${id}`
+    );
+  }
+
+  deleteAllSummaries() {
+  return this.http.delete<{ message: string }>(
+    `${this.baseUrl}/summaries`
+  );
+}
+
+
+
 
 }

@@ -28,19 +28,32 @@ export(): void {
       a.download = 'resume.txt';
       a.click();
       window.URL.revokeObjectURL(url);
-    } else if (this.selectedFormat === 'pdf') {
-      const doc = new jsPDF();
-      const lines = this.summary.split('\n');
-      let y = 10;
+    }else if (this.selectedFormat === 'pdf') {
+  const doc = new jsPDF();
 
-      lines.forEach(line => {
-        doc.text(line, 10, y);
-        y += 10;
-      });
+  const pageHeight = doc.internal.pageSize.getHeight();
+  const pageWidth = doc.internal.pageSize.getWidth();
+  const margin = 10;
+  const maxLineWidth = pageWidth - margin * 2;
+  const lineHeight = 8;
 
-      doc.save('resume.pdf');
+  // Découper le texte en lignes qui tiennent dans la largeur de la page
+  const lines = doc.splitTextToSize(this.summary, maxLineWidth);
+
+  let y = 20; // Position verticale de départ
+
+  lines.forEach((line: string | string[]) => {
+    // Si on dépasse la page, on en ajoute une nouvelle
+    if (y + lineHeight > pageHeight - margin) {
+      doc.addPage();
+      y = 20; // Reset position en haut de la nouvelle page
     }
-  }
+    doc.text(line, margin, y);
+    y += lineHeight;
+  });
 
+  doc.save('resume.pdf');
+}
+  }
 
 }
