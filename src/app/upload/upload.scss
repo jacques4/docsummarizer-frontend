@@ -1,0 +1,26 @@
+
+
+.loading-indicator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+
+  span {
+    width: 20px;         // taille du point
+    height: 20px;
+    margin: 0 8px;
+    background-color: #1e90ff; // bleu, tu peux mettre #28a745 pour vert
+    border-radius: 50%;  // rond parfait
+    display: inline-block;
+    animation: bounce 0.6s infinite alternate;
+  }
+
+  span:nth-child(2) { animation-delay: 0.2s; }
+  span:nth-child(3) { animation-delay: 0.4s; }
+}
+
+@keyframes bounce {
+  from { transform: translateY(0); }
+  to { transform: translateY(-15px); }  // rebond plus visible
+}

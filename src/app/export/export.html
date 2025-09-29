@@ -1,0 +1,13 @@
+<div class="container mt-4">
+  <h3>📤 Export du résumé</h3>
+
+  <div class="form-group">
+    <label for="formatSelect">Choisir le format :</label>
+    <select id="formatSelect" [(ngModel)]="selectedFormat" class="form-control">
+      <option value="txt">TXT</option>
+      <option value="pdf">PDF</option>
+    </select>
+  </div>
+
+  <button class="btn btn-primary mt-2" (click)="export()">Exporter</button>
+</div>

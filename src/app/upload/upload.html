@@ -1,0 +1,59 @@
+
+<div class="container mt-5 p-4 shadow-lg rounded bg-light">
+  <h2 class="mb-4 text-center text-primary">📄 Résumé automatique de document</h2>
+
+  <!-- Upload -->
+  <div class="form-group mb-3">
+    <label for="fileInput" class="form-label fw-bold">
+      Choisir un fichier <span class="text-muted">(.pdf, .docx, .txt)</span>
+    </label>
+    <input 
+      type="file" 
+      id="fileInput" 
+      (change)="onFileSelected($event)" 
+      class="form-control border-primary shadow-sm" />
+  </div>
+
+  <!-- Boutons -->
+  <div class="d-flex gap-2">
+    <button 
+      class="btn btn-primary flex-fill" 
+      (click)="onUpload()" 
+      [disabled]="!selectedFile || loading">
+      {{ loading ? 'Résumé en cours...' : '🚀 Envoyer le fichier' }}
+    </button>
+
+    <button 
+      class="btn btn-outline-danger flex-fill" 
+      (click)="onCancel()" 
+      [disabled]="!loading">
+      ❌ Annuler
+    </button>
+  </div>
+
+  <!-- Animation des 3 points -->
+   <br>
+  <div *ngIf="loading" class="loading-indicator mt-3 text-center">
+    <span></span><span></span><span></span>
+  </div>
+
+  <!-- Erreur -->
+  <div *ngIf="errorMessage" class="alert alert-danger mt-3 shadow-sm">
+    ⚠️ {{ errorMessage }}
+  </div>
+
+  <!-- Aucun résumé -->
+  <div *ngIf="!summary && !loading" class="alert alert-info mt-3 shadow-sm text-center">
+    Aucun résumé pour l’instant. Uploadez un fichier pour commencer !
+  </div>
+
+  <!-- Résumé -->
+  <div *ngIf="summary" class="mt-4 p-3 bg-white rounded shadow-sm">
+    <h4 class="text-success mb-3">🧠 Résumé généré :</h4>
+    <p class="lh-lg">{{ summary }}</p>
+
+    <button class="btn btn-success w-100 mt-3" (click)="exportSummary()">
+      📤 Exporter le résumé
+    </button>
+  </div>
+</div>
